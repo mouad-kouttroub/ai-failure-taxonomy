@@ -93,6 +93,9 @@ def main():
     with col_next:
         if st.button("Next \u2192", disabled=st.session_state.idx >= n - 1):
             st.session_state.idx += 1
+    # Clamp index into valid range: st.progress needs [0,1] and traces[idx] needs a
+    # valid index; button `disabled` is computed pre-rerun, so idx can overrun n-1.
+    st.session_state.idx = max(0, min(st.session_state.idx, n - 1))
     with col_prog:
         coded = sum(1 for a in st.session_state.annotations.values() if a.note or a.tags)
         st.progress((st.session_state.idx + 1) / n, text=f"Trace {st.session_state.idx + 1} of {n} \u00b7 {coded} coded")
