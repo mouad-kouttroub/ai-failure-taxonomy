@@ -12,7 +12,7 @@ venv/
 .env
 *.local.md
 
-# Per-session state: prep progress + annotations (atomic-written JSON)
+# Per-session state (atomic-written JSON)
 state/
 
 # OS noise
