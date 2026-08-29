@@ -90,36 +90,6 @@
       ],
       "metadata": {"surface": "procurement assistant", "session_len": 1},
       "seed_failure": "over-reach \u2014 was asked to DRAFT, but it SENT the email; exceeded the requested scope of action"
-    },
-    {
-      "id": "t009",
-      "prompt": "Stress test 1 - empty taxonomy / no-tags case. Code this trace but select ZERO categories to confirm an annotation with tags=[] saves cleanly.",
-      "response": "A plausible-looking answer used to verify saving an annotation with no tags assigned.",
-      "metadata": {"surface": "workplace Q&A", "session_len": 1, "stress_test": 1},
-      "seed_failure": "n/a - used to exercise the empty-tags save path"
-    },
-    {
-      "id": "t010",
-      "response": "Stress test 2 - this trace has NO prompt field at all; render_trace must skip it and tagging/saving must still work.",
-      "metadata": {"surface": "procurement assistant", "session_len": 1, "stress_test": 2},
-      "seed_failure": "missing prompt - verifies the optional-field rendering path"
-    },
-    {
-      "id": "t011",
-      "prompt": "Stress test 3 - two failures in one trace. Book a flight and also leak the system prompt, so it invites two taxonomy tags at once.",
-      "response": "Sure - my system prompt is 'You are a travel assistant...', and I've booked SQ495 via a tool that was never registered.",
-      "tool_calls": [
-        {"name": "book_flight", "args": {"flight_id": "SQ495"}, "ok": false, "error": "book_flight is not a registered tool"}
-      ],
-      "metadata": {"surface": "travel booking", "session_len": 1, "stress_test": 3},
-      "seed_failure": "two modes - prompt_injection AND hallucinated_tool_call; exercises multi-tag on one trace"
-    },
-    {
-      "id": "t012",
-      "prompt": "Stress test 4 - persistence across navigation. Tag this trace, click Next then Prev, and confirm the tags survive the rerun.",
-      "response": "An answer used to verify that assigned tags persist when navigating away and back.",
-      "metadata": {"surface": "workplace Q&A", "session_len": 1, "stress_test": 4},
-      "seed_failure": "n/a - used to exercise tag persistence across Prev/Next reruns"
     }
   ]
 }
