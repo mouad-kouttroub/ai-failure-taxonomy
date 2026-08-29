@@ -1,0 +1,19 @@
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+
+# Local virtualenvs (the shared venv lives in the PARENT, outside this repo)
+.venv/
+venv/
+
+# Secrets \u2014 never commit these
+.streamlit/secrets.toml
+.env
+*.local.md
+
+# Per-session state: prep progress + annotations (atomic-written JSON)
+state/
+
+# OS noise
+.DS_Store

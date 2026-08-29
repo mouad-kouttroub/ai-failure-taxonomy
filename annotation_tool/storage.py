@@ -78,36 +78,34 @@ def _atomic_write_json(path: Path, payload: Any) -> None:
 # Finish these with your AI coding assistant, one per Git feature branch.
 # --------------------------------------------------------------------------- #
 def save_annotations(annotations: Dict[str, Annotation]) -> None:
-    """TODO(you): persist annotations atomically.
-
-    Steps:
-      1. Build payload = {"annotations": [a.to_dict() for a in annotations.values()]}.
-      2. Call _atomic_write_json(ANNOTATIONS_FILE, payload).
-    """
-    raise NotImplementedError("save_annotations is a TODO \u2014 see the TODO notes .")
+    """Persist annotations atomically to ANNOTATIONS_FILE (state/, gitignored)."""
+    payload = {"annotations": [a.to_dict() for a in annotations.values()]}
+    _atomic_write_json(ANNOTATIONS_FILE, payload)
 
 
 def save_taxonomy(taxonomy: Taxonomy) -> None:
-    """TODO(you): persist the grown taxonomy atomically to TAXONOMY_FILE.
-
-    Hint: _atomic_write_json(TAXONOMY_FILE, taxonomy.to_dict()).
-    """
-    raise NotImplementedError("save_taxonomy is a TODO \u2014 see the TODO notes .")
+    """Persist the grown taxonomy atomically to TAXONOMY_FILE (state/)."""
+    _atomic_write_json(TAXONOMY_FILE, taxonomy.to_dict())
 
 
 def category_counts(annotations: Dict[str, Annotation], taxonomy: Taxonomy) -> Dict[str, int]:
-    """TODO(you): the OUTPUT OF AXIAL CODING \u2014 how many failures per category.
+    """Count tag occurrences per category across all annotations.
 
-    Return {category_name: count} covering EVERY taxonomy category (0 if unused),
-    counting each tag occurrence across all annotations. This is the number you
-    report as your failure taxonomy.
+    Covers every taxonomy category (0 if unused).
     """
-    raise NotImplementedError("category_counts is a TODO \u2014 see the TODO notes .")
+    counts = {name: 0 for name in taxonomy.names()}
+    for ann in annotations.values():
+        for tag in ann.tags:
+            if tag in counts:
+                counts[tag] += 1
+    return counts
 
 
 def export_review(annotations: Dict[str, Annotation], taxonomy: Taxonomy) -> str:
-    """TODO(you): export the coded taxonomy + counts as a string (JSON or Markdown).
-
-    Purpose: so you can SHOW a failure taxonomy.
-    """
-    raise NotImplementedError("export_review is a TODO \u2014 see the TODO notes .")
+    """Export the coded review (taxonomy + counts + notes) as a JSON string."""
+    review = {
+        "taxonomy": taxonomy.to_dict(),
+        "counts": category_counts(annotations, taxonomy),
+        "annotations": [a.to_dict() for a in annotations.values()],
+    }
+    return json.dumps(review, indent=2, ensure_ascii=False)
