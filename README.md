@@ -5,10 +5,18 @@ LLM / agent outputs. It supports the standard error-analysis workflow: **open-co
 each trace, **axial-code** failures into an editable taxonomy, view **per-category
 counts**, and **export** the coded review.
 
+## Requirements
+
+- Python 3.9+ (tested on 3.13)
+
 ## Install
 
+Clone the repo, then create and activate your own virtual environment and install
+the dependencies:
+
 ```bash
-python -m venv .venv && source .venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
@@ -17,6 +25,8 @@ pip install -r requirements.txt
 ```bash
 streamlit run annotation_tool/trace_review.py
 ```
+
+The app opens in your browser at http://localhost:8501.
 
 The app launches against synthetic seed traces in `annotation_tool/seeds/`.
 
