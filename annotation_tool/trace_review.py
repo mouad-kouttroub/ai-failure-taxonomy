@@ -136,14 +136,13 @@ def main():
         st.header("Failure taxonomy")
         new_cat = st.text_input("Add a category (axial coding):")
         if st.button("Add category") and new_cat:
-            st.session_state.taxonomy.add(new_cat)
-            # TODO(you): persist with storage.save_taxonomy(st.session_state.taxonomy).
-            st.info("TODO: persist the taxonomy (storage.save_taxonomy, Stage 3).")
+              st.session_state.taxonomy.add(new_cat)
+              storage.save_taxonomy(st.session_state.taxonomy)
+              st.success(f"Added category: {new_cat}")
 
         st.subheader("Per-category counts")
-        # TODO(you): call storage.category_counts(...) and render a bar chart / table.
-        # This is the OUTPUT OF AXIAL CODING \u2014 the number you report.
-        st.info("TODO: implement + render storage.category_counts .")
+        counts = storage.category_counts(st.session_state.annotations, st.session_state.taxonomy)
+        st.bar_chart(counts)
 
         st.subheader("Export")
         if st.button("Export review"):

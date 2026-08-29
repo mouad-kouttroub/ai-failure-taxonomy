@@ -84,21 +84,21 @@ def save_annotations(annotations: Dict[str, Annotation]) -> None:
 
 
 def save_taxonomy(taxonomy: Taxonomy) -> None:
-    """TODO(you): persist the grown taxonomy atomically to TAXONOMY_FILE.
-
-    Hint: _atomic_write_json(TAXONOMY_FILE, taxonomy.to_dict()).
-    """
-    raise NotImplementedError("save_taxonomy is a TODO \u2014 see the TODO notes .")
+    """Persist the grown taxonomy atomically to TAXONOMY_FILE (state/)."""
+    _atomic_write_json(TAXONOMY_FILE, taxonomy.to_dict())
 
 
 def category_counts(annotations: Dict[str, Annotation], taxonomy: Taxonomy) -> Dict[str, int]:
-    """TODO(you): the OUTPUT OF AXIAL CODING \u2014 how many failures per category.
+    """Count tag occurrences per category across all annotations.
 
-    Return {category_name: count} covering EVERY taxonomy category (0 if unused),
-    counting each tag occurrence across all annotations. This is the number you
-    report as your failure taxonomy.
+    Covers every taxonomy category (0 if unused).
     """
-    raise NotImplementedError("category_counts is a TODO \u2014 see the TODO notes .")
+    counts = {name: 0 for name in taxonomy.names()}
+    for ann in annotations.values():
+        for tag in ann.tags:
+            if tag in counts:
+                counts[tag] += 1
+    return counts
 
 
 def export_review(annotations: Dict[str, Annotation], taxonomy: Taxonomy) -> str:
