@@ -78,13 +78,9 @@ def _atomic_write_json(path: Path, payload: Any) -> None:
 # Finish these with your AI coding assistant, one per Git feature branch.
 # --------------------------------------------------------------------------- #
 def save_annotations(annotations: Dict[str, Annotation]) -> None:
-    """TODO(you): persist annotations atomically.
-
-    Steps:
-      1. Build payload = {"annotations": [a.to_dict() for a in annotations.values()]}.
-      2. Call _atomic_write_json(ANNOTATIONS_FILE, payload).
-    """
-    raise NotImplementedError("save_annotations is a TODO \u2014 see the TODO notes .")
+    """Persist annotations atomically to ANNOTATIONS_FILE (state/, gitignored)."""
+    payload = {"annotations": [a.to_dict() for a in annotations.values()]}
+    _atomic_write_json(ANNOTATIONS_FILE, payload)
 
 
 def save_taxonomy(taxonomy: Taxonomy) -> None:

@@ -120,20 +120,16 @@ def main():
 
         # ---- Failure-taxonomy tagging (TODO) ----
         st.markdown("### Failure-taxonomy tags")
-        st.multiselect(
-            "Assign categories (grow the taxonomy in the sidebar):",
-            options=st.session_state.taxonomy.names(),
-            default=ann.tags,
-            key=f"tags_{trace.id}",
-        )
-        # TODO(you): write the selected tags back onto `ann.tags`, then persist with
-        # storage.save_annotations(st.session_state.annotations).
-        st.info("TODO: wire the multiselect back to ann.tags + save.
+        ann.tags = st.multiselect(
+              "Assign categories (grow the taxonomy in the sidebar):",
+              options=st.session_state.taxonomy.names(),
+              default=ann.tags,
+              key=f"tags_{trace.id}",
+              )
 
-        # ---- Save button (TODO) ----
         if st.button("Save annotation"):
-            # TODO(you): call storage.save_annotations(st.session_state.annotations)
-            st.warning("TODO: implement storage.save_annotations .")
+            storage.save_annotations(st.session_state.annotations)
+            st.success("Saved.")
 
     # ---- Sidebar: taxonomy editor + counts (partly TODO) ----
     with st.sidebar:
