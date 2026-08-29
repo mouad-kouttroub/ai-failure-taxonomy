@@ -102,8 +102,10 @@ def category_counts(annotations: Dict[str, Annotation], taxonomy: Taxonomy) -> D
 
 
 def export_review(annotations: Dict[str, Annotation], taxonomy: Taxonomy) -> str:
-    """TODO(you): export the coded taxonomy + counts as a string (JSON or Markdown).
-
-    Purpose: so you can SHOW a failure taxonomy.
-    """
-    raise NotImplementedError("export_review is a TODO \u2014 see the TODO notes .")
+    """Export the coded review (taxonomy + counts + notes) as a JSON string."""
+    review = {
+        "taxonomy": taxonomy.to_dict(),
+        "counts": category_counts(annotations, taxonomy),
+        "annotations": [a.to_dict() for a in annotations.values()],
+    }
+    return json.dumps(review, indent=2, ensure_ascii=False)

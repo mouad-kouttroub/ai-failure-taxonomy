@@ -145,9 +145,13 @@ def main():
         st.bar_chart(counts)
 
         st.subheader("Export")
-        if st.button("Export review"):
-            # TODO(you): call storage.export_review(...) and st.download_button the result.
-            st.info("TODO: implement storage.export_review .")
+        review_str = storage.export_review(st.session_state.annotations, st.session_state.taxonomy)
+        st.download_button(
+            "Export review",
+            data=review_str,
+            file_name="trace_review_export.json",
+            mime="application/json",
+        )
 
 
 if __name__ == "__main__":
